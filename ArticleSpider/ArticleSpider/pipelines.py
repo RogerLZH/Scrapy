@@ -15,8 +15,8 @@ class ArticlespiderPipeline(object):
     def process_item(self, item, spider):
         return item
 
-#将爬取的数据存到MySql数据库中
-#这是一种同步操作，因为数据库的插入速度更不上爬虫的爬去速度，爬到后面会出现堵塞
+# 将爬取的数据存到MySql数据库中
+# 这是一种同步操作，因为数据库的插入速度更不上爬虫的爬去速度，爬到后面会出现堵塞
 class MysqlPipeline(object):
     def __init__(self):
         self.conn = MySQLdb.connect('localhost', 'lzh', 'lzh0219.lg', 'articlespider', charset = "utf8", use_unicode = True)      #连接数据库
@@ -34,7 +34,7 @@ class MySqlTwistedPipeline(object):
 
     @classmethod
     def from_settings(cls, settings):
-        #将参数变成dict,这里的参数名要和MySQLdb里的Connection中的参数名一至
+        # 将参数变成dict,这里的参数名要和MySQLdb里的Connection中的参数名一至
         dbparms = dict(
             host=settings["MYSQL_HOST"],
             db = settings["MYSQL_DBNAME"],
@@ -61,10 +61,11 @@ class MySqlTwistedPipeline(object):
         insert_sql = "insert into articleinfo (title, date, url, url_object_id, front_image_url, front_image_path, praise_num, fav_num, comment_num, tag) values (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
         cursor.execute(insert_sql, (item["title"], item["date"], item["url"], item["url_object_id"], item["front_image_url"], item["front_image_path"], item["praise_num"], item["fav_num"], item["comment_num"], item["tags"]))
 
-
-class ArticleImagePipeline(ImagesPipeline):         #下载图片，并将存储地址并存到item中
-    def item_completed(self, results, item, info):
-        for ok, value in results:
-            image_file_path = value["path"]
-        item["front_image_path"] = image_file_path
-        return item
+# class ArticleImagePipeline(ImagesPipeline):         # 下载图片，并将存储地址并存到item中
+#     def item_completed(self, results, item, info):
+#         if "front_image_url" in item:
+#             for ok, value in results:
+#                 image_file_path = value["path"]
+#             item["front_image_path"] = image_file_path
+#
+#         return item

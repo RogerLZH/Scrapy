@@ -69,7 +69,7 @@ ROBOTSTXT_OBEY = False
 ITEM_PIPELINES = {
    'ArticleSpider.pipelines.ArticlespiderPipeline': 1,
     # 'scrapy.pipelines.images.ImagesPipeline': 1,     #调用scrapy的图片下载功能
-    'ArticleSpider.pipelines.ArticleImagePipeline': 2,
+    # 'ArticleSpider.pipelines.ArticleImagePipeline': 2,
     # 'ArticleSpider.pipelines.MysqlPipeline': 2,
     'ArticleSpider.pipelines.MySqlTwistedPipeline': 3,
 }
